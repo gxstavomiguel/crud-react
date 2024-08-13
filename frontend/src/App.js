@@ -25,7 +25,15 @@ function App() {
   const [users, setUsers ] = useState([])
   const [onEdit, setOnEdit] = useState(null)
 
-  function getUser
+  const getUser = async () => {
+    try {
+      const res = await axios.get("https://localhost:8800");
+      setUsers(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)))
+    } catch (error) {
+      toast.error(error)
+    }
+  };
+
 
   return (
     <>
