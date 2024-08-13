@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { toast } from "react-toastify";
 import { FaTrash, FaEdit } from "react-icons/fa";
 
 const Table = styled.table`
@@ -14,13 +13,13 @@ const Table = styled.table`
   word-break: break-all;
 `;
 
-export const Thead = styled.thead``;
+const Thead = styled.thead``;
 
-export const Tr = styled.tr``;
+const Tr = styled.tr``;
 
-export const Tbody = styled.tbody``;
+const Tbody = styled.tbody``;
 
-export const Th = styled.th`
+const Th = styled.th`
   text-align: start;
   border-bottom: inset;
   padding-bottom: 5px;
@@ -30,8 +29,8 @@ export const Th = styled.th`
   }
 `;
 
-export const Td = styled.td`
-  padding=top: 15px;
+const Td = styled.td`
+  padding-top: 15px; /* Correção do estilo de padding */
   text-align: ${(props) => (props.alignCenter ? "center" : "start")};
   width: ${(props) => (props.width ? props.width : "auto")};
 
@@ -40,7 +39,7 @@ export const Td = styled.td`
   }
 `;
 
-const Grid = () => {
+const Grid = ({ users }) => {
   return (
     <Table>
       <Thead>
@@ -58,7 +57,6 @@ const Grid = () => {
             <Td width="30%">{item.nome}</Td>
             <Td width="30%">{item.email}</Td>
             <Td width="20%" onlyWeb>{item.fone}</Td>
-
             <Td alignCenter width="5%"><FaEdit /></Td>
             <Td alignCenter width="5%"><FaTrash /></Td>
           </Tr>

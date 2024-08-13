@@ -1,10 +1,10 @@
+import React, { useState, useEffect } from "react";
 import GlobalStyle from "./styles/global.js";
 import styled from "styled-components";
 import Form from "./components/Form.js";
-import Grid from "./components/Grid"
+import Grid from "./components/Grid";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import useState from "react";
 import axios from "axios";
 
 const Container = styled.div`
@@ -22,28 +22,33 @@ const Title = styled.h2`
 `;
 
 function App() {
-  const [users, setUsers ] = useState([])
-  const [onEdit, setOnEdit] = useState(null)
+  const [users, setUsers] = useState([]);
+  const [onEdit, setOnEdit] = useState(null);
 
   const getUser = async () => {
     try {
-      const res = await axios.get("https://localhost:8800");
-      setUsers(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)))
+      console.log("Iniciando a requisição");
+      const res = await axios.get("http://localhost:8800"); // Verifique se a URL está correta
+      console.log("Dados recebidos:", res.data);
+      setUsers(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
     } catch (error) {
-      toast.error(error)
+      console.error("Erro ao buscar dados:", error);
+      toast.error("Erro ao buscar dados: " + error.message);
     }
   };
 
+  useEffect(() => {
+    getUser();
+  }, []); // Dependências vazias para rodar apenas uma vez
 
   return (
     <>
-      <Title>USUÁRIOS</Title>
-      <Form />
-      <Grid />
       <Container>
-        {/* Outros componentes ou conteúdo podem ir aqui */}
+        <Title>USUÁRIOS</Title>
+        <Form />
+        <Grid users={users} />
+        <ToastContainer autoClose={3000} position="bottom-left" />
       </Container>
-      <ToastContainer autoClose={3000} position="bottom-left" />
       <GlobalStyle />
     </>
   );
