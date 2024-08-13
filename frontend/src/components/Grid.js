@@ -1,6 +1,8 @@
-import React from "react";
 import styled from "styled-components";
 import { FaTrash, FaEdit } from "react-icons/fa";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 const Table = styled.table`
   width: 100%;
@@ -39,7 +41,28 @@ const Td = styled.td`
   }
 `;
 
-const Grid = ({ users }) => {
+const Grid = ({ users, setUsers, setOnEdit }) => {
+
+    const handleDelete = async (id) => {
+        await axios
+            .delete("http://localhost:8800/" + id)
+            .then(({ data }) => {
+                const newArray= users.filter((user) => user.id !== id);
+
+                setUsers(newArray);
+                toast.sucess(data)
+            })
+            .catch(({ data }) => toast.error(data));
+
+            setOnEdit(null)
+    }
+
+
+const handleEdit = (item) => {
+    setOnEdit(item);
+}
+    
+
   return (
     <Table>
       <Thead>
@@ -57,8 +80,12 @@ const Grid = ({ users }) => {
             <Td width="30%">{item.nome}</Td>
             <Td width="30%">{item.email}</Td>
             <Td width="20%" onlyWeb>{item.fone}</Td>
-            <Td alignCenter width="5%"><FaEdit /></Td>
-            <Td alignCenter width="5%"><FaTrash /></Td>
+            <Td alignCenter width="5%">
+                <FaEdit onClick={() => handleEdit(item)}/>
+                </Td>
+            <Td alignCenter width="5%">
+                <FaTrash onClick={() => handleDelete(item.id)}/>
+                </Td>
           </Tr>
         ))}
       </Tbody>

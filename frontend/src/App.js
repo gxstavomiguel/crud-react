@@ -6,6 +6,7 @@ import Grid from "./components/Grid";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { getUsers } from "../../api/controllers/users.js";
 
 const Container = styled.div`
   width: 100%;
@@ -45,8 +46,8 @@ function App() {
     <>
       <Container>
         <Title>USUÁRIOS</Title>
-        <Form />
-        <Grid users={users} />
+        <Form onEdit={onEdit} setOnEdit={setOnEdit} getUsers={getUsers}/>
+        <Grid users={users}  setUsers={setUsers} setOnEdit={setOnEdit}/>
         <ToastContainer autoClose={3000} position="bottom-left" />
       </Container>
       <GlobalStyle />

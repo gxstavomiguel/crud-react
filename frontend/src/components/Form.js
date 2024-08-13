@@ -1,5 +1,7 @@
-import React, { useRef } from "react";
 import styled from "styled-components";
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 const FormContainer = styled.form`
   display: flex;
@@ -42,8 +44,46 @@ const Label = styled.label``;
 const Form = ({ onEdit }) => {
   const ref = useRef();
 
+  useEffect(() => {
+    if (onEdit) {
+      const user = ref.current;
+
+      user.nome.value = onEdit.nome;
+      user.email.value = onEdit.email;
+      user.telefone.value = onEdit.telefone;
+      user.data_nascimento.value = onEdit.data_nascimento;
+    }
+  }, [onEdit]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const user = ref.current;
+
+    if (
+      !user.nome.value ||
+      !user.email.value ||
+      !user.fone.value ||
+      !user.data_nascimento.value
+    ) {
+      return toast.warn("Preencha todos os campos!");
+    }
+
+    if (onEdit) {
+      await axios 
+        .put("https:/localhost:8800/" + onEdit.id, {
+          nome: user.nome.value,
+          email: user.email.value,
+          telefone: user.telefone.value,
+          data_nascimento: user.data_nascimento.values
+        })
+        .then(({ data }) => toast.success(data))
+        .catch(({ data}) => toast.error(data))
+    }
+  };
+
   return (
-    <FormContainer ref={ref}>
+    <FormContainer ref={ref} onSudmit={handleSubmit}>
       <InputArea>
         <Label>Nome</Label>
         <Input name="name" />
