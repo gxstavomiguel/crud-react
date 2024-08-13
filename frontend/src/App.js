@@ -4,6 +4,8 @@ import Form from "./components/Form.js";
 import Grid from "./components/Grid"
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useState from "react";
+import axios from "axios";
 
 const Container = styled.div`
   width: 100%;
@@ -20,6 +22,11 @@ const Title = styled.h2`
 `;
 
 function App() {
+  const [users, setUsers ] = useState([])
+  const [onEdit, setOnEdit] = useState(null)
+
+  function getUser
+
   return (
     <>
       <Title>USUÁRIOS</Title>
