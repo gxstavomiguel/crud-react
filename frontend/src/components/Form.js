@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 
 const FormContainer = styled.form`
@@ -6,18 +6,35 @@ const FormContainer = styled.form`
   align-items: flex-end;
   gap: 10px;
   flex-wrap: wrap;
-  backgroud-color: #fff;
+  background-color: #fff; /* Correção do erro de digitação */
   padding: 20px;
-  box-shadow: 0px 0px 05px #ccc;
+  box-shadow: 0px 0px 5px #ccc; /* Ajuste na sombra */
   border-radius: 5px;
 `;
 
+const InputArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px; /* Adiciona espaçamento entre campos */
+`;
+
 const Input = styled.input`
-  width: 120px;
+  width: 200px; /* Aumenta o tamanho para melhor usabilidade */
   padding: 0 10px;
   border: 1px solid #bbb;
   border-radius: 5px;
   height: 40px;
+`;
+
+const Button = styled.button`
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  background-color: green; /* Correção do erro de digitação */
+  color: white; /* Altera a cor do texto para branco para contraste */
+  height: 42px;
+  z-index: 9999;
 `;
 
 const Label = styled.label``;
@@ -29,23 +46,25 @@ const Form = ({ onEdit }) => {
     <FormContainer ref={ref}>
       <InputArea>
         <Label>Nome</Label>
-        <Input name="name"></Input>
+        <Input name="name" />
       </InputArea>
 
       <InputArea>
         <Label>E-mail</Label>
-        <Input name="email" type="email"></Input>
+        <Input name="email" type="email" />
       </InputArea>
 
       <InputArea>
         <Label>Telefone</Label>
-        <Input name="telefone"></Input>
+        <Input name="telefone" />
       </InputArea>
 
       <InputArea>
         <Label>Data de Nascimento</Label>
-        <Input name="data_nascimento" type="date"></Input>
+        <Input name="data_nascimento" type="date" />
       </InputArea>
+
+      <Button type="submit">SALVAR</Button>
     </FormContainer>
   );
 };
