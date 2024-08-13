@@ -10,4 +10,5 @@ app.use(cors())
 app.use("/", userRoutes);
 
 app.listen(8800)
+console.log(`Server running at {http://localhost:8800}`);
 
